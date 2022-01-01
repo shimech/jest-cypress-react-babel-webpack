@@ -1,4 +1,4 @@
-import {render, fireEvent} from '@testing-library/react'
+import {render, fireEvent} from 'calculator-test-utils'
 import Calculator from '../calculator'
 
 test('the clear button switches from AC to C when there is an entry', () => {
