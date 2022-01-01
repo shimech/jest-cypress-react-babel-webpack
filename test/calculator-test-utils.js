@@ -1,17 +1,17 @@
 import PropTypes from 'prop-types'
 import {ThemeProvider} from 'emotion-theming'
-import {dark} from '../src/themes'
+import * as themes from '../src/themes'
 import {render as rtlRender} from '@testing-library/react'
 
-function render(ui, options) {
-  return rtlRender(ui, {...options, wrapper: Wrapper})
-}
+function render(ui, {theme = themes.dark, ...options} = {}) {
+  function Wrapper({children}) {
+    return <ThemeProvider theme={theme}>{children}</ThemeProvider>
+  }
+  Wrapper.propTypes = {
+    children: PropTypes.node,
+  }
 
-function Wrapper({children}) {
-  return <ThemeProvider theme={dark}>{children}</ThemeProvider>
-}
-Wrapper.propTypes = {
-  children: PropTypes.node,
+  return rtlRender(ui, {...options, wrapper: Wrapper})
 }
 
 export * from '@testing-library/react'
