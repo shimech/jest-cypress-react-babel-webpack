@@ -1,0 +1,22 @@
+name: Run test
+on: [push]
+jobs:
+  test-javascript:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14.8.1'
+      - name: Install packages
+        run: npm install
+      - name: Run test
+        run: npm run test
+      - name: Deploy to Codecov
+      - uses: codecov/codecov-action@v2
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          fail_ci_if_error: true
+          verbose: true
